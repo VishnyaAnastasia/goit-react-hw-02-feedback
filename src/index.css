@@ -48,3 +48,7 @@ img {
   height: auto;
   display: block;
 }
+
+body {
+  background-color: #ffc0cb;
+}

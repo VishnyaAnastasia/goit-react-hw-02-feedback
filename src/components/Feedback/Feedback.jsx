@@ -33,3 +33,7 @@ export class Feedback extends Component {
     );
   }
 }
+
+// Profile.propTypes = {
+
+// };

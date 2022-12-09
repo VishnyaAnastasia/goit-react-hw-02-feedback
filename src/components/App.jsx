@@ -6,7 +6,7 @@ import { Statistics } from './Statistics/Statistics';
 import { Notification } from './Notification/Notification';
 
 export class App extends Component {
-  state = { good: 0, neutral: 0, bad: 0 };
+  state = { good: 0, neutral: 0, bad: 0, soso: 0 };
 
   clickHandler = event => {
     this.setState(prevState => {
@@ -17,8 +17,11 @@ export class App extends Component {
   };
 
   countTotalFeedback = () => {
-    const { good, neutral, bad } = this.state;
-    return good + neutral + bad;
+    return Object.values(this.state).reduce((a, b) => a + b, 0);
+  };
+
+  feedbackOptions = () => {
+    return Object.keys(this.state);
   };
 
   countPositiveFeedbackPercentage = () => {
@@ -31,26 +34,32 @@ export class App extends Component {
     return result.toFixed(0);
   };
 
+  statisticsOptions = () => {
+    return this.state;
+  };
+
   render() {
     const {
       clickHandler,
       countTotalFeedback,
       countPositiveFeedbackPercentage,
+      feedbackOptions,
+      statisticsOptions,
     } = this;
 
-    const { good, neutral, bad } = this.state;
     return (
       <>
         <Section title="Please leave feedback">
-          <Feedback clickHandler={clickHandler} />
+          <Feedback
+            clickHandler={clickHandler}
+            feedbackOptions={feedbackOptions}
+          />
         </Section>
 
         {countTotalFeedback() !== 0 && (
           <Section title="Statistics">
             <Statistics
-              good={good}
-              neutral={neutral}
-              bad={bad}
+              statisticsOptions={statisticsOptions}
               countTotalFeedback={countTotalFeedback}
               countPositiveFeedbackPercentage={countPositiveFeedbackPercentage}
             />
